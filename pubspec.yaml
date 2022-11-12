@@ -31,12 +31,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_bloc:
   avatar_glow:
+  font_awesome_flutter: 
   url_launcher:
   record:
   http:
   provider:
-
+  equatable:
+  firebase_auth:
+  firebase_core:
+  cloud_firestore:
+  flutterfire_ui:
+  google_sign_in:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -75,6 +82,7 @@ flutter:
     - podcast.png
     - apple.png
     - music.png
+    - musica.gif
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

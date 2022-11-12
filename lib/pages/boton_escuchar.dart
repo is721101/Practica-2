@@ -1,7 +1,7 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:music_find_app/Provider/song_provider.dart';
-import 'package:music_find_app/song_info.dart';
+import 'package:music_find_app/pages/song_info.dart';
 import 'package:provider/provider.dart';
 
 class Escuchar extends StatelessWidget {
@@ -31,7 +31,6 @@ class Escuchar extends StatelessWidget {
       ),
       onTap: () async {
         var res = await context.read<SongProvider>().recordSong();
-        print("Desde retornado");
         print(res);
         if (!res.isEmpty) {
           Navigator.of(context).push(MaterialPageRoute(

@@ -5,18 +5,49 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'Provider/song_provider.dart';
+import '../Provider/song_provider.dart';
 
 class SongInfo extends StatelessWidget {
   const SongInfo({super.key, required this.info});
   final Map info;
   @override 
   Widget build(BuildContext context) {
-    bool Isfavorite= context.watch<SongProvider>().containFav(info);
-    return Scaffold(
+    return 
+    Scaffold(
       appBar: AppBar(
         title: Text("Here you go"),
-        actions: [Isfavorite?Del(context):Add(context)],
+        actions: [IconButton(
+            onPressed: () async{ 
+              bool Isfavorite= await context.read<SongProvider>().containFav(info);
+              print(Isfavorite);
+              showDialog(
+                  context: context,
+                  builder: (builder) => AlertDialog(
+                        title: Text(Isfavorite?"Eliminar de favoritos":"Agregar a favoritos"),
+                        content: Text(
+                            Isfavorite?"El elemento será eliminado de tus favoritos\n ¿Quieres continuar?":"El elemento será agregado a tus favoritos\n ¿Quieres continuar?"),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text("Cancelar")),
+                          TextButton(
+                              onPressed: () {
+                                
+                                Navigator.of(context).pop();
+                                if(Isfavorite){
+                                  context.read<SongProvider>().DeleteFAvorite(info);
+                                }
+                                else{
+                                  context.read<SongProvider>().AddFAvorite(info);
+                                }
+                              },
+                              child: Text("Continuar"))
+                        ],
+                      ));
+            },
+            icon: Icon(Icons.favorite))],
       
       ),
       body: Column(
@@ -25,7 +56,7 @@ class SongInfo extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 2,
-            child: Image.network( "${info["spotify"]["album"]["images"][0]["url"]!}",
+            child: Image.network( "${info["album_image"]!}",
              fit: BoxFit.fill,
             ),
           ),
@@ -66,7 +97,7 @@ class SongInfo extends StatelessWidget {
             children: [
               MaterialButton(
                 onPressed: () {
-                  _launch(info["spotify"]["external_urls"]["spotify"]);
+                  _launch(info["spotify"]);
                 },
                 child: Image.asset(
                   "assets/spotify.png",
@@ -76,7 +107,7 @@ class SongInfo extends StatelessWidget {
               ),
               MaterialButton(
                 onPressed: () {
-                  _launch(info["song_link"]);
+                  _launch(info["podcast"]);
                 },
                 child: Image.asset(
                   "assets/podcast.png",
@@ -86,7 +117,7 @@ class SongInfo extends StatelessWidget {
               ),
               MaterialButton(
                 onPressed: () {
-                  _launch(info["apple_music"]["url"]);
+                  _launch(info["apple_music"]);
                 },
                 child: Image.asset(
                   "assets/apple.png",
@@ -101,62 +132,9 @@ class SongInfo extends StatelessWidget {
     );
   }
 
-  Widget Add(BuildContext context){
-    return IconButton(
-            onPressed: () {
-              print("La cancion es favorita? ${context.read<SongProvider>().containFav(info)}");
-              showDialog(
-                  context: context,
-                  builder: (builder) => AlertDialog(
-                        title: Text("Agregar a favoritos"),
-                        content: Text(
-                            "El elemento será agregado a tus favoritos\n ¿Quieres continuar?"),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text("Cancelar")),
-                          TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                 context.read<SongProvider>().AddFAvorite(info);
-                              },
-                              child: Text("Continuar"))
-                        ],
-                      ));
-            },
-            icon: Icon(Icons.favorite));
-  }
-  Widget Del(BuildContext context){
-    return IconButton(
-            onPressed: () {
-              print("La cancion es favorita? ${context.read<SongProvider>().containFav(info)}");
-              showDialog(
-                  context: context,
-                  builder: (builder) => AlertDialog(
-                        title: Text("Eliminar de favoritos"),
-                        content: Text(
-                            "El elemento será eliminado de tus favoritos\n ¿Quieres continuar?"),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text("Cancelar")),
-                          TextButton(
-                              onPressed: (){
-                                Navigator.of(context).pop();
-                                 context.read<SongProvider>().DeleteFAvorite(info);
-                              },
-                              child: Text("Continuar"))
-                        ],
-                      ));
-            },
-            icon: Icon(Icons.delete));
-  }
+  
+
 Future<void> _launch(Url) async {
-  print(Uri.parse("${info["apple_music"]["url"]}"));
   if (!await launchUrl(Uri.parse(Url))) {
     throw 'Could not launch ';
   }

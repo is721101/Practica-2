@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:music_find_app/song_info.dart';
+import 'package:music_find_app/pages/song_info.dart';
 import 'package:provider/provider.dart';
 
-import 'Provider/song_provider.dart';
+import '../Provider/song_provider.dart';
 
 class ItemMusic extends StatelessWidget {
   const ItemMusic({super.key, required this.content});
@@ -28,7 +28,7 @@ class ItemMusic extends StatelessWidget {
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(25.0)),
                   child: Image.network(
-                    "${content["spotify"]["album"]["images"][0]["url"]!}",
+                    "${content["album_image"]!}",
                     fit: BoxFit.fill,
                   ),
                 ),

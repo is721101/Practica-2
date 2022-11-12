@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "672162913928",
+    "project_id": "practica-2-90086",
+    "storage_bucket": "practica-2-90086.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672162913928:android:b300b832e15fdd3249493d",
+        "android_client_info": {
+          "package_name": "com.example.music_find_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672162913928-q9tqg54ndvgrdfmgiomls4ecvoh8f0cv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.music_find_app",
+            "certificate_hash": "fc39a22681a954916f22360a2bbd5f870ea45301"
+          }
+        },
+        {
+          "client_id": "672162913928-2854sbaaencoku7bb73onpkjldr5qk2e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAueTUO9IXAHb6C4AR_-Z74GqRMuwYGaSQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672162913928-2854sbaaencoku7bb73onpkjldr5qk2e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
